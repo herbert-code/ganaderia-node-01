@@ -32,6 +32,8 @@ services:
     environment:
       - POSTGRES_USER=ganaderiaGateway
       - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - 5435:5432
     healthcheck:
       test:
         - CMD-SHELL
@@ -42,18 +44,20 @@ services:
   ganaderiagateway-elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
     environment:
-      - ES_JAVA_OPTS=-Xms256m -Xmx256m
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
       - discovery.type=single-node
       - xpack.security.enabled=false
+    ports:
+      - 9200:9200
     healthcheck:
       test:
         - CMD
         - curl
         - -f
-        - http://localhost:9200/_cluster/health?wait_for_status=green&timeout=10s
+        - http://localhost:9200/_cluster/health?wait_for_status=green&timeout=30s
       interval: 5s
-      timeout: 10s
-      retries: 10
+      timeout: 30s
+      retries: 15
 
   ganaderiaafiliadosservice:
     image: ganaderiaafiliadosservice
@@ -65,8 +69,10 @@ services:
       - SPRING_CLOUD_CONSUL_PORT=8500
       - SPRING_DATASOURCE_URL=jdbc:postgresql://ganaderiaafiliadosservice-postgresql:5432/ganaderiaAfiliadosService
       - SPRING_LIQUIBASE_URL=jdbc:postgresql://ganaderiaafiliadosservice-postgresql:5432/ganaderiaAfiliadosService
-      - SPRING_ELASTICSEARCH_URIS=http://ganaderiaafiliadosservice-elasticsearch:9200
+      - SPRING_ELASTICSEARCH_URIS=http://ganaderiaafiliadosservice-elasticsearch:9201
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+    ports:
+      - 8081:8081
     healthcheck:
       test:
         - CMD
@@ -86,6 +92,8 @@ services:
     environment:
       - POSTGRES_USER=ganaderiaAfiliadosService
       - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - 5436:5432
     healthcheck:
       test:
         - CMD-SHELL
@@ -96,7 +104,7 @@ services:
   ganaderiaafiliadosservice-elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
     environment:
-      - ES_JAVA_OPTS=-Xms256m -Xmx256m
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
       - discovery.type=single-node
       - xpack.security.enabled=false
     healthcheck:
@@ -104,10 +112,12 @@ services:
         - CMD
         - curl
         - -f
-        - http://localhost:9200/_cluster/health?wait_for_status=green&timeout=10s
+        - http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=30s #- http://localhost:9200/_cluster/health?wait_for_status=green&timeout=10s
       interval: 5s
-      timeout: 10s
-      retries: 10
+      timeout: 30s #10s
+      retries: 15 #10
+    ports:
+    - 9201:9200
 
   consul:
     image: docker.io/bitnami/consul:1.21.0
