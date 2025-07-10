@@ -1,0 +1,10 @@
+{
+  "generator-jhipster": {
+    "appsFolders": ["00-ganaderia-gateway", "01-ganaderia-afiliados-service"],
+    "directoryPath": "../",
+    "jhipsterVersion": "8.11.0",
+    "jwtSecretKey": "ZTFkZjk1YmFkMjAzNTgyM2YxYmIzYTllODViZWI0ODJjMjQ4NjNiMmM1YjQ3MjM1NjNlMDYxZWYyNTg3OTU2MzFhNjA5OTc1NTkwZmQzMWZjNmYxYzZjYWU1MmM3NDM4ZDFhYQ==",
+    "monitoring": "no",
+    "serviceDiscoveryType": "consul"
+  }
+}
