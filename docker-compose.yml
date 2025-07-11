@@ -1,6 +1,6 @@
 services:
   ganaderiagateway:
-    image: ganaderiagateway
+    image: herbertcode/ganaderiagateway
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_PROFILES_ACTIVE=prod,api-docs
@@ -60,7 +60,7 @@ services:
       retries: 15
 
   ganaderiaafiliadosservice:
-    image: ganaderiaafiliadosservice
+    image: herbertcode/ganaderiaafiliadosservice
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_PROFILES_ACTIVE=prod,api-docs
