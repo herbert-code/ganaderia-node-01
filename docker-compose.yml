@@ -4,10 +4,9 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1'       # Límite de CPU
-          memory: 1G
+          memory: 300M
     environment:
-      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - _JAVA_OPTIONS=-Xmx256m -Xms128m
       - SPRING_PROFILES_ACTIVE=prod,api-docs
       - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED=true
       - SPRING_CLOUD_CONSUL_HOST=consul
@@ -15,7 +14,7 @@ services:
       - SPRING_R2DBC_URL=r2dbc:postgresql://ganaderiagateway-postgresql:5432/ganaderiaGateway
       - SPRING_LIQUIBASE_URL=jdbc:postgresql://ganaderiagateway-postgresql:5432/ganaderiaGateway
       - SPRING_ELASTICSEARCH_URIS=http://ganaderiagateway-elasticsearch:9200
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092    
     ports:
       - 8080:8080
     healthcheck:
@@ -47,11 +46,15 @@ services:
       timeout: 5s
       retries: 10
   ganaderiagateway-elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.3 #docker.elastic.co/elasticsearch/elasticsearch:8.13.4
     environment:
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
       - discovery.type=single-node
       - xpack.security.enabled=false
+    deploy:
+      resources:
+        limits:
+          memory: 350M  
     ports:
       - 9200:9200
     healthcheck:
