@@ -1,10 +1,10 @@
 services:
   ganaderiagateway:
     image: herbertcode/ganaderiagateway
-    deploy:
-      resources:
-        limits:
-          memory: 300M
+    #deploy:
+     # resources:
+      #  limits:
+       #   memory: 300M
     environment:
       - _JAVA_OPTIONS=-Xmx256m -Xms128m
       - SPRING_PROFILES_ACTIVE=prod,api-docs
