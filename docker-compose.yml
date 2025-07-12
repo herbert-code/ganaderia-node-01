@@ -1,6 +1,11 @@
 services:
   ganaderiagateway:
     image: herbertcode/ganaderiagateway
+    deploy:
+      resources:
+        limits:
+          cpus: '1'       # Límite de CPU
+          memory: 1G
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_PROFILES_ACTIVE=prod,api-docs
@@ -61,6 +66,11 @@ services:
 
   ganaderiaafiliadosservice:
     image: herbertcode/ganaderiaafiliadosservice
+    deploy:
+      resources:
+        limits:
+          cpus: '1'       # Límite de CPU
+          memory: 1G
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_PROFILES_ACTIVE=prod,api-docs
