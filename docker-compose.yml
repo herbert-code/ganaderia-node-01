@@ -29,8 +29,8 @@ services:
     depends_on:
       ganaderiagateway-postgresql:
         condition: service_healthy
-      ganaderiagateway-elasticsearch:
-        condition: service_healthy
+      #ganaderiagateway-elasticsearch:
+        #condition: service_healthy
   ganaderiagateway-postgresql:
     image: postgres:17.4
     environment:
@@ -48,13 +48,13 @@ services:
   ganaderiagateway-elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.3 #docker.elastic.co/elasticsearch/elasticsearch:8.13.4
     environment:
-      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - ES_JAVA_OPTS=-Xms256m -Xmx128m
       - discovery.type=single-node
       - xpack.security.enabled=false
-    deploy:
-      resources:
-        limits:
-          memory: 350M  
+    #deploy:
+     # resources:
+      #  limits:
+       #   memory: 350M  
     ports:
       - 9200:9200
     healthcheck:
