@@ -16,7 +16,7 @@ services:
       #- SPRING_ELASTICSEARCH_URIS=http://ganaderiagateway-elasticsearch:9200
       #- SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092    
     ports:
-      - 8080:8080
+      - 8079:8080
     healthcheck:
       test:
         - CMD
